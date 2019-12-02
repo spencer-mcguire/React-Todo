@@ -3,16 +3,16 @@ import TodoForm from "./components/TodoComponents/TodoForm";
 import TodoList from "./components/TodoComponents/TodoList";
 
 const data = [
-  // {
-  //   task: "Organize Garage",
-  //   id: 1528817077286,
-  //   completed: false
-  // },
-  // {
-  //   task: "Bake Cookies",
-  //   id: 1528817084358,
-  //   completed: false
-  // }
+  {
+    task: "Organize Garage",
+    id: 1528817077286,
+    completed: false
+  },
+  {
+    task: "Bake Cookies",
+    id: 1528817084358,
+    completed: false
+  }
 ];
 
 class App extends React.Component {
@@ -37,12 +37,22 @@ class App extends React.Component {
     });
   };
 
+  markDone = itemID => {
+    const todos = this.state.data.map(todo => {
+      if (todo.id === itemID) {
+        todo.completed = !todo.completed;
+      }
+      return todo;
+    });
+    this.setState({ todos, todo: "" });
+  };
+
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoForm addNewTask={this.addNewTask} />
-        <TodoList data={this.state.data} />
+        <TodoList data={this.state.data} markDone={this.markDone} />
       </div>
     );
   }
