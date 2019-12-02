@@ -47,11 +47,25 @@ class App extends React.Component {
     this.setState({ todos, todo: "" });
   };
 
+  removeCompleted = e => {
+    e.preventDefault();
+    this.setState(prevState => {
+      return {
+        data: prevState.data.filter(todo => {
+          return !todo.completed;
+        })
+      };
+    });
+  };
+
   render() {
     return (
-      <div>
+      <div className="app">
         <h2>Welcome to your Todo App!</h2>
-        <TodoForm addNewTask={this.addNewTask} />
+        <TodoForm
+          addNewTask={this.addNewTask}
+          removeCompleted={this.removeCompleted}
+        />
         <TodoList data={this.state.data} markDone={this.markDone} />
       </div>
     );
